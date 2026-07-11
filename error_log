@@ -1,0 +1,6 @@
+[02-Jul-2026 08:06:03 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function mime_content_type() in /home2/vtutopup/public_html/vtushopping/index.php:310
+Stack trace:
+#0 /home2/vtutopup/public_html/vtushopping/index.php(386): upload_product_image(Array)
+#1 /home2/vtutopup/public_html/vtushopping/index.php(887): upload_product_images(Array)
+#2 {main}
+  thrown in /home2/vtutopup/public_html/vtushopping/index.php on line 310

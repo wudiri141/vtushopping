@@ -1,0 +1,608 @@
+/* ==========================================================================
+   Admin design system — self-contained, does not depend on store.css.
+   Clean, minimal "SaaS console" look with a collapsible sidebar.
+   ========================================================================== */
+
+:root{
+  --admin-bg:#f6f7fb;
+  --admin-surface:#ffffff;
+  --admin-border:#e6e8f0;
+  --admin-border-strong:#d8dbe6;
+  --admin-text:#141726;
+  --admin-text-muted:#6b7189;
+  --admin-text-faint:#9aa0b4;
+  --admin-accent:#4f46e5;
+  --admin-accent-hover:#4338ca;
+  --admin-accent-soft:#eef0ff;
+  --admin-success:#15803d;
+  --admin-success-soft:#e7f6ec;
+  --admin-warning:#b45309;
+  --admin-warning-soft:#fef3e2;
+  --admin-danger:#dc2626;
+  --admin-danger-soft:#fdecec;
+  --admin-info:#2563eb;
+  --admin-info-soft:#eaf1ff;
+  --admin-radius-sm:8px;
+  --admin-radius:12px;
+  --admin-radius-lg:16px;
+  --admin-shadow-sm:0 1px 2px rgba(20,23,38,.05);
+  --admin-shadow-md:0 8px 24px rgba(20,23,38,.06);
+  --admin-sidebar-w:250px;
+  --admin-sidebar-w-collapsed:76px;
+  --admin-topbar-h:64px;
+}
+
+.admin-body{
+  margin:0;
+  background:var(--admin-bg);
+  color:var(--admin-text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+.admin-body *{box-sizing:border-box;}
+
+.admin-shell{
+  display:flex;
+  min-height:100vh;
+}
+
+/* ---------------- Sidebar ---------------- */
+
+.admin-sidebar{
+  width:var(--admin-sidebar-w);
+  flex:0 0 var(--admin-sidebar-w);
+  background:var(--admin-surface);
+  border-right:1px solid var(--admin-border);
+  display:flex;
+  flex-direction:column;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+  transition:width .18s ease, flex-basis .18s ease, transform .2s ease;
+  z-index:40;
+}
+
+.admin-shell.is-collapsed .admin-sidebar{
+  width:var(--admin-sidebar-w-collapsed);
+  flex-basis:var(--admin-sidebar-w-collapsed);
+}
+
+.admin-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:18px 18px;
+  border-bottom:1px solid var(--admin-border);
+  min-height:var(--admin-topbar-h);
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+.admin-brand-mark{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  border-radius:9px;
+  background:var(--admin-accent);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:14px;
+}
+
+.admin-brand-text{
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:-.01em;
+  opacity:1;
+  transition:opacity .12s ease;
+}
+
+.admin-shell.is-collapsed .admin-brand-text,
+.admin-shell.is-collapsed .admin-nav-group-label,
+.admin-shell.is-collapsed .admin-nav-label{
+  opacity:0;
+  width:0;
+  overflow:hidden;
+}
+
+.admin-nav{
+  flex:1;
+  padding:14px 12px 20px;
+}
+
+.admin-nav-group{margin-bottom:18px;}
+
+.admin-nav-group-label{
+  font-size:11px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:var(--admin-text-faint);
+  padding:0 10px 6px;
+  white-space:nowrap;
+}
+
+.admin-nav-link{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:9px 10px;
+  border-radius:var(--admin-radius-sm);
+  color:var(--admin-text-muted);
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
+  white-space:nowrap;
+  margin-bottom:2px;
+  position:relative;
+}
+
+.admin-nav-link svg{width:19px;height:19px;flex:0 0 19px;}
+
+.admin-nav-link:hover{
+  background:var(--admin-bg);
+  color:var(--admin-text);
+}
+
+.admin-nav-link.is-active{
+  background:var(--admin-accent-soft);
+  color:var(--admin-accent);
+}
+
+.admin-nav-badge{
+  margin-left:auto;
+  background:var(--admin-danger);
+  color:#fff;
+  font-size:10px;
+  font-weight:700;
+  border-radius:99px;
+  padding:1px 6px;
+  line-height:1.5;
+}
+
+.admin-shell.is-collapsed .admin-nav-badge{display:none;}
+
+.admin-sidebar-foot{
+  border-top:1px solid var(--admin-border);
+  padding:12px;
+}
+
+/* ---------------- Main / topbar ---------------- */
+
+.admin-main{
+  flex:1;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
+.admin-topbar{
+  height:var(--admin-topbar-h);
+  flex:0 0 var(--admin-topbar-h);
+  background:var(--admin-surface);
+  border-bottom:1px solid var(--admin-border);
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:0 22px;
+  position:sticky;
+  top:0;
+  z-index:30;
+}
+
+.admin-icon-btn{
+  width:36px;
+  height:36px;
+  border-radius:var(--admin-radius-sm);
+  border:1px solid var(--admin-border);
+  background:var(--admin-surface);
+  color:var(--admin-text-muted);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  flex:0 0 auto;
+}
+
+.admin-icon-btn svg{width:18px;height:18px;}
+.admin-icon-btn:hover{background:var(--admin-bg);color:var(--admin-text);}
+
+.admin-topbar-title{
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:-.01em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.admin-topbar-spacer{flex:1;}
+
+.admin-topbar-link{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:13px;
+  font-weight:600;
+  color:var(--admin-text-muted);
+  text-decoration:none;
+  padding:8px 12px;
+  border-radius:99px;
+  border:1px solid var(--admin-border);
+}
+
+.admin-topbar-link:hover{color:var(--admin-text);background:var(--admin-bg);}
+.admin-topbar-link svg{width:15px;height:15px;}
+
+.admin-avatar{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background:var(--admin-accent-soft);
+  color:var(--admin-accent);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:14px;
+  flex:0 0 auto;
+}
+
+.admin-body-scroll{
+  flex:1;
+  padding:26px 28px 60px;
+  max-width:1320px;
+  width:100%;
+  margin:0 auto;
+}
+
+/* ---------------- Page head ---------------- */
+
+.admin-page-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:22px;
+  flex-wrap:wrap;
+}
+
+.admin-page-head p.eyebrow{
+  margin:0 0 4px;
+  font-size:12px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--admin-accent);
+}
+
+.admin-page-head h1{
+  margin:0;
+  font-size:23px;
+  font-weight:700;
+  letter-spacing:-.01em;
+}
+
+.admin-page-head .admin-page-sub{
+  margin:4px 0 0;
+  font-size:13.5px;
+  color:var(--admin-text-muted);
+}
+
+.admin-head-actions{display:flex;gap:10px;flex-wrap:wrap;}
+
+/* ---------------- Flash / alert ---------------- */
+
+.admin-flash{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 16px;
+  border-radius:var(--admin-radius-sm);
+  font-size:13.5px;
+  font-weight:500;
+  margin-bottom:18px;
+}
+
+.admin-flash svg{width:17px;height:17px;flex:0 0 auto;}
+.admin-flash.success{background:var(--admin-success-soft);color:var(--admin-success);}
+.admin-flash.error{background:var(--admin-danger-soft);color:var(--admin-danger);}
+.admin-flash.info{background:var(--admin-info-soft);color:var(--admin-info);}
+
+/* ---------------- Stat cards ---------------- */
+
+.admin-stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.admin-stat-card{
+  background:var(--admin-surface);
+  border:1px solid var(--admin-border);
+  border-radius:var(--admin-radius);
+  padding:16px 18px;
+  box-shadow:var(--admin-shadow-sm);
+}
+
+.admin-stat-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+
+.admin-stat-icon{
+  width:34px;height:34px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--admin-accent-soft);color:var(--admin-accent);
+}
+.admin-stat-icon svg{width:17px;height:17px;}
+
+.admin-stat-card span.label{font-size:12.5px;color:var(--admin-text-muted);font-weight:600;}
+.admin-stat-card strong{display:block;font-size:22px;font-weight:700;margin-top:2px;letter-spacing:-.01em;}
+.admin-stat-card small{display:block;color:var(--admin-text-faint);font-size:12px;margin-top:4px;}
+.admin-stat-card small.up{color:var(--admin-success);}
+.admin-stat-card small.warn{color:var(--admin-warning);}
+
+/* ---------------- Panels / cards ---------------- */
+
+.admin-panel{
+  background:var(--admin-surface);
+  border:1px solid var(--admin-border);
+  border-radius:var(--admin-radius);
+  box-shadow:var(--admin-shadow-sm);
+  margin-bottom:20px;
+  overflow:hidden;
+}
+
+.admin-panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:16px 20px;
+  border-bottom:1px solid var(--admin-border);
+  flex-wrap:wrap;
+}
+
+.admin-panel-head h2{margin:0;font-size:15px;font-weight:700;}
+.admin-panel-head p{margin:2px 0 0;font-size:12.5px;color:var(--admin-text-muted);}
+.admin-panel-body{padding:20px;}
+.admin-panel-body.tight{padding:0;}
+
+.admin-grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;}
+
+/* ---------------- Tables ---------------- */
+
+.admin-table-wrap{overflow-x:auto;}
+
+table.admin-table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:13.5px;
+}
+
+table.admin-table th{
+  text-align:left;
+  font-size:11.5px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--admin-text-faint);
+  font-weight:700;
+  padding:12px 20px;
+  border-bottom:1px solid var(--admin-border);
+  white-space:nowrap;
+}
+
+table.admin-table td{
+  padding:13px 20px;
+  border-bottom:1px solid var(--admin-border);
+  vertical-align:middle;
+  color:var(--admin-text);
+}
+
+table.admin-table tr:last-child td{border-bottom:none;}
+table.admin-table tbody tr:hover{background:var(--admin-bg);}
+
+.admin-table-empty{
+  padding:40px 20px;
+  text-align:center;
+  color:var(--admin-text-muted);
+  font-size:13.5px;
+}
+
+.admin-cell-title{font-weight:600;}
+.admin-cell-sub{display:block;color:var(--admin-text-muted);font-size:12px;margin-top:2px;}
+
+.admin-table-media{
+  width:38px;height:38px;border-radius:8px;object-fit:cover;
+  border:1px solid var(--admin-border);
+}
+
+.admin-row-flex{display:flex;align-items:center;gap:10px;}
+
+/* ---------------- Badges / pills ---------------- */
+
+.admin-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:3px 10px;
+  border-radius:99px;
+  font-size:11.5px;
+  font-weight:700;
+  text-transform:capitalize;
+  white-space:nowrap;
+}
+.admin-badge.neutral{background:#eef0f4;color:var(--admin-text-muted);}
+.admin-badge.success{background:var(--admin-success-soft);color:var(--admin-success);}
+.admin-badge.warning{background:var(--admin-warning-soft);color:var(--admin-warning);}
+.admin-badge.danger{background:var(--admin-danger-soft);color:var(--admin-danger);}
+.admin-badge.info{background:var(--admin-info-soft);color:var(--admin-info);}
+
+/* ---------------- Buttons ---------------- */
+
+.admin-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  font-size:13px;
+  font-weight:600;
+  padding:9px 15px;
+  border-radius:var(--admin-radius-sm);
+  border:1px solid var(--admin-border-strong);
+  background:var(--admin-surface);
+  color:var(--admin-text);
+  cursor:pointer;
+  text-decoration:none;
+  line-height:1.2;
+}
+.admin-btn svg{width:15px;height:15px;}
+.admin-btn:hover{background:var(--admin-bg);}
+
+.admin-btn.primary{background:var(--admin-accent);border-color:var(--admin-accent);color:#fff;}
+.admin-btn.primary:hover{background:var(--admin-accent-hover);border-color:var(--admin-accent-hover);}
+
+.admin-btn.danger{background:var(--admin-surface);border-color:var(--admin-danger-soft);color:var(--admin-danger);}
+.admin-btn.danger:hover{background:var(--admin-danger-soft);}
+
+.admin-btn.ghost{border-color:transparent;background:transparent;}
+.admin-btn.ghost:hover{background:var(--admin-bg);}
+
+.admin-btn.sm{padding:6px 11px;font-size:12px;}
+.admin-btn.full{width:100%;}
+.admin-btn[disabled]{opacity:.5;cursor:not-allowed;}
+
+.admin-btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* ---------------- Forms ---------------- */
+
+.admin-form-grid{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:14px 16px;
+}
+
+.admin-field{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600;color:var(--admin-text);}
+.admin-field.wide{grid-column:1 / -1;}
+
+.admin-field input[type="text"],
+.admin-field input[type="email"],
+.admin-field input[type="password"],
+.admin-field input[type="number"],
+.admin-field input[type="file"],
+.admin-field input[type="search"],
+.admin-field select,
+.admin-field textarea{
+  border:1px solid var(--admin-border-strong);
+  border-radius:var(--admin-radius-sm);
+  padding:10px 12px;
+  font-size:13.5px;
+  font-weight:400;
+  color:var(--admin-text);
+  background:#fff;
+  font-family:inherit;
+}
+
+.admin-field input:focus,
+.admin-field select:focus,
+.admin-field textarea:focus{
+  outline:2px solid var(--admin-accent-soft);
+  border-color:var(--admin-accent);
+}
+
+.admin-field textarea{resize:vertical;min-height:80px;}
+.admin-field small{font-weight:400;color:var(--admin-text-muted);font-size:11.5px;}
+
+.admin-check-field{
+  display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;
+  grid-column:1 / -1;
+}
+.admin-check-field input{width:16px;height:16px;}
+
+.admin-form-actions{
+  grid-column:1 / -1;
+  display:flex;
+  gap:10px;
+  padding-top:4px;
+}
+
+/* Inline forms used inside table cells (status selects etc.) */
+.admin-inline-form{display:flex;align-items:center;gap:8px;}
+.admin-inline-form select{
+  border:1px solid var(--admin-border-strong);
+  border-radius:var(--admin-radius-sm);
+  padding:6px 8px;
+  font-size:12.5px;
+  background:#fff;
+}
+
+/* ---------------- Misc ---------------- */
+
+.admin-empty-state{
+  padding:50px 20px;
+  text-align:center;
+  color:var(--admin-text-muted);
+}
+.admin-empty-state svg{width:34px;height:34px;color:var(--admin-text-faint);margin-bottom:10px;}
+.admin-empty-state h3{margin:0 0 4px;font-size:14.5px;color:var(--admin-text);}
+.admin-empty-state p{margin:0;font-size:13px;}
+
+.admin-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;}
+.admin-tab{
+  padding:8px 14px;border-radius:99px;font-size:13px;font-weight:600;
+  border:1px solid var(--admin-border-strong);color:var(--admin-text-muted);text-decoration:none;
+}
+.admin-tab.is-active{background:var(--admin-accent);border-color:var(--admin-accent);color:#fff;}
+
+.admin-chart-bars{display:flex;align-items:flex-end;gap:10px;height:150px;padding-top:10px;}
+.admin-chart-bars span{
+  flex:1;background:linear-gradient(180deg, var(--admin-accent), var(--admin-accent-soft));
+  border-radius:6px 6px 0 0;min-height:6px;
+}
+
+.admin-list-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:13px 20px;border-bottom:1px solid var(--admin-border);
+}
+.admin-list-row:last-child{border-bottom:none;}
+.admin-list-row-title{font-size:13.5px;font-weight:600;}
+.admin-list-row-sub{font-size:12px;color:var(--admin-text-muted);margin-top:2px;}
+
+.admin-rating-stars{color:#f59e0b;font-size:13px;letter-spacing:1px;}
+
+/* ---------------- Mobile ---------------- */
+
+.admin-sidebar-backdrop{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(15,17,30,.4);
+  z-index:35;
+}
+
+@media (max-width: 900px){
+  .admin-sidebar{
+    position:fixed;
+    left:0;top:0;
+    transform:translateX(-100%);
+    box-shadow:var(--admin-shadow-md);
+    width:var(--admin-sidebar-w);
+    flex-basis:var(--admin-sidebar-w);
+  }
+  .admin-shell.is-mobile-open .admin-sidebar{transform:translateX(0);}
+  .admin-shell.is-mobile-open .admin-sidebar-backdrop{display:block;}
+  .admin-shell.is-collapsed .admin-sidebar{width:var(--admin-sidebar-w);flex-basis:var(--admin-sidebar-w);}
+  .admin-shell.is-collapsed .admin-brand-text,
+  .admin-shell.is-collapsed .admin-nav-group-label,
+  .admin-shell.is-collapsed .admin-nav-label{opacity:1;width:auto;}
+  .admin-body-scroll{padding:18px 14px 40px;}
+  .admin-form-grid{grid-template-columns:1fr;}
+  .admin-grid-2{grid-template-columns:1fr;}
+  .admin-topbar{padding:0 14px;}
+  .admin-topbar-title{font-size:14.5px;}
+  [data-admin-mobile-toggle]{display:flex !important;}
+  [data-admin-collapse]{display:none;}
+}
