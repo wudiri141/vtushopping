@@ -1,7 +1,8 @@
 <?php
 
 return [
-    'name' => 'VTU Shopping Store',
-    'base_url' => getenv('APP_URL') ?: 'https://vtushopping.vtutopup.com.ng',
+    'name' => 'VTU Shopping',
+    'base_url' => getenv('APP_URL') ?: '',
     'currency' => '₦',
+    'env' => getenv('APP_ENV') ?: 'production',
 ];
